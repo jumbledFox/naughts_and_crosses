@@ -2,7 +2,6 @@ use std::io;
 use naughts_and_crosses::board;
 
 fn main() {
-    let mut q = 0;
     'program: loop {
         println!("SUPER DUPER NAUGHTS AND CROSSES !!!!!!!");
         // Make a new game
@@ -43,7 +42,6 @@ fn main() {
                 1 => 2,
                 _ => 1,
             };
-            q+=1;
         }
         // Announce winner (or draw!!)
         println!("{}", match b.check_win() {
