@@ -16,7 +16,7 @@ impl Board {
         let p = self.places;
         // Vector of results
         // Loop through each row, column, and diagonal, multiplying the three cells that make them up together, push this to r
-        // If we find 1^2 or 2^2 in 'r', that means player 1 or player 2 have won.
+        // If we find 1^3 or 2^3 in 'r', that means player 1 or player 2 have won.
         let mut r = vec![];
         // Diagonals
         r.push(p[0][0] * p[1][1] * p[2][2]);
@@ -29,11 +29,31 @@ impl Board {
         // Check 'r' to see if it contains any winning places
         if r.contains(&1) {
             return 1
-        } else if r.contains(&2) {
+        } else if r.contains(&8) {
             return 2
         } else {
             return 0
         }
+    }
+    // Checks if a space is empty
+    pub fn space_empty(&self, space: usize) -> bool {
+        match self.places[((space-1) as usize)/3][((space-1) as usize)%3] {
+            0 => true,
+            _ => false,
+        }
+    }
+    // Sets a space
+    pub fn set_space(&mut self, space: usize, value: u8) {
+        self.places[((space-1) as usize)/3][((space-1) as usize)%3] = value
+    }
+    // If the board contains empty spaces
+    pub fn spaces_empty(&self) -> bool {
+        for p in &self.places {
+            if p.contains(&0) {
+                return true
+            }
+        }
+        false
     }
 
     pub fn draw_board(&self) {
